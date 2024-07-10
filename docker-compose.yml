@@ -3,31 +3,35 @@ version: '3.1'
 services:
 
   ghost:
-    container_name: ghost_blog
+    container_name: jg_blog
     image: ghost:5-alpine
     restart: always
     ports:
       - 7000:2368
+    env_file:
+      - .env
     environment:
       # see https://ghost.org/docs/config/#configuration-options
       database__client: mysql
       database__connection__host: db
-      database__connection__user: root
-      database__connection__password: example
-      database__connection__database: ghost
+      database__connection__user: ${DB_USER}
+      database__connection__password: ${DB_PASSWORD}
+      database__connection__database: ${DB_NAME}
       # this url value is just an example, and is likely wrong for your environment!
       url: http://blog.huynhhanh.com
       # contrary to the default mentioned in the linked documentation, this image defaults to NODE_ENV=production (so development mode needs to be explicitly specified if desired)
       #NODE_ENV: development
     volumes:
-      - D:/project/JG.Blog/data:/var/lib/ghost/content
+      - /home/JG.Blog/data:/var/lib/ghost/content
 
   db:
-    container_name: ghost_db
+    container_name: blog_db
     image: mysql:8.0
     restart: always
+    env_file:
+      - .env
     environment:
-      MYSQL_ROOT_PASSWORD: example
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     volumes:
       - db:/var/lib/mysql
 

@@ -1,1 +1,3 @@
 data/themes/*
+.env
+data/logs/*
