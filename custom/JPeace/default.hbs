@@ -8,10 +8,33 @@
     <link rel="stylesheet" href="{{asset "built/screen.css"}}">
 
     {{ghost_head}}
+
+    {{!-- Customize css --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+      body,html {
+        font-family: "JetBrains Mono", monospace;
+      }
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%; 
+      background: url('background.png') no-repeat center top;
+      background-size: contain; 
+      z-index: -1; 
+    }
+  </style>
+
 </head>
 
 <body class="{{body_class}}{{{block "body_class"}}} is-head-{{#match @custom.navigation_layout "Logo on the left"}}left-logo{{else match @custom.navigation_layout "Logo in the middle"}}middle-logo{{else}}stacked{{/match}}{{#match @custom.title_font "=" "Elegant serif"}} has-serif-title{{/match}}{{#match @custom.body_font "=" "Elegant serif"}} has-serif-body{{/match}}">
 <div class="gh-site">
+
+    <div class="background"></div>
 
     <header id="gh-head" class="gh-head gh-outer">
         <div class="gh-head-inner gh-inner">
@@ -77,7 +100,7 @@
                 </nav>
             {{/if}}
             <div class="gh-powered-by">
-                <a href="https://ghost.org/" target="_blank" rel="noopener">Powered by Ghost</a>
+                <a href="https://facebook.com/jinergenkai" target="_blank" rel="noopener">Jinergenkai</a>
             </div>
         </div>
     </footer>
@@ -89,6 +112,7 @@
 {{/is}}
 
 <script src="{{asset "built/main.min.js"}}"></script>
+<script src="src/search.js"></script>
 
 {{ghost_foot}}
 

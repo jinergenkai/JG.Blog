@@ -1,5 +1,4 @@
 services:
-
   ghost:
     container_name: jg_blog
     image: ghost:5-alpine
@@ -17,6 +16,32 @@ services:
       database__connection__database: ${DB_NAME} # must = ghost
       url: ${GHOST_URL}
       #NODE_ENV: development
+
+      # Bulk mail configuration - mailgun
+      #      mail__options__auth__user: ${MAIL_USER}
+      #      mail__options__auth__pass: ${MAIL_PASSWORD}
+      #      mail__from: "Jine blog <nmhung.works@gmail.com>"
+      #      mail__transport: SMTP
+      #      mail__options__host: smtp.mailgun.org
+      #      mail__options__port: 2525
+
+      # Bulk mail configuration - SMTP
+      # mail__transport=SMTP
+      # mail__options__host=smtp.exemple.com
+      # mail__options__port=1025
+      # mail__options__auth__user=username@exmple.com
+      # mail__options__auth__pass=XXX
+      # mail__from=Exemple Corp. <username@exmple.com>
+
+      # Bulk mail configuration - mailcatcher for testing
+      mail__options__host: mailcatcher
+      mail__options__port: 1025
+      mail__options__auth__user: ""
+      mail__options__auth__pass: ""
+      mail__options__secure_connection: false
+
+      # end of env variables
+
     volumes:
       - ghost:/var/lib/ghost/content
       # - ./custom/RubyJG:/var/lib/ghost/content/themes/RubyJG # for custom theme
@@ -31,6 +56,26 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     volumes:
       - db:/var/lib/mysql
+
+  mailcatcher:
+    image: sj26/mailcatcher:v0.8.2
+    container_name: ghost-smtp-container
+    ports:
+      - 1080:1080
+    healthcheck:
+      test: wget -q -O /dev/null http://mailcatcher:1080/
+      interval: 10s
+      retries: 80
+
+  #  stmp server
+  #  msmtp:
+  #   image: namshi/smtp
+  #   environment:
+  #     - MAILGUN_USER=your@mailgun.org
+  #     - MAILGUN_PASSWORD=your_password
+  #     - RELAY_HOST=smtp.mailgun.org
+  #   ports:
+  #     - "1025:1025"
 
 volumes:
   ghost:

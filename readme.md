@@ -4,12 +4,14 @@
   - install docker.
   - create `.env` file
   ```
-  DB_USER=
+  DB_USER=root
 DB_PASSWORD=
-DB_NAME=
+DB_NAME=ghost
 GHOST_URL=
+...
   ```
-  - `docker-compose up -d --build`
+  - `docker-compose up -d`
+  - go to `http://localhost:2368/ghost/` to setup ghost admin account.
 
 # setup
   ### ghost theme for dev
@@ -17,7 +19,7 @@ GHOST_URL=
   - `ghost install local`
   - `ghost start`
   - open cmd.exe with admin permission
-  - `mklink /D "D:\project\JG.Blog\local\content\themes\testlink" "D:\project\JG.Blog\custom\RubyJG"`
+  - `mklink /D "D:\project\JG.Blog\local\content\themes\JPeace" "D:\project\JG.Blog\custom\JPeace"`
 
   ### Add code highlight ```
   - setting -> code injection -> site header
