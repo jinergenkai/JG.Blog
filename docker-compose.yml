@@ -1,5 +1,3 @@
-version: '3.1'
-
 services:
 
   ghost:
@@ -14,15 +12,14 @@ services:
       # see https://ghost.org/docs/config/#configuration-options
       database__client: mysql
       database__connection__host: db
-      database__connection__user: ${DB_USER}
+      database__connection__user: ${DB_USER} # must = root
       database__connection__password: ${DB_PASSWORD}
-      database__connection__database: ${DB_NAME}
-      # this url value is just an example, and is likely wrong for your environment!
-      url: http://blog.huynhhanh.com
-      # contrary to the default mentioned in the linked documentation, this image defaults to NODE_ENV=production (so development mode needs to be explicitly specified if desired)
+      database__connection__database: ${DB_NAME} # must = ghost
+      url: ${GHOST_URL}
       #NODE_ENV: development
     volumes:
-      - /home/JG.Blog/data:/var/lib/ghost/content
+      - ghost:/var/lib/ghost/content
+      # - ./custom/RubyJG:/var/lib/ghost/content/themes/RubyJG # for custom theme
 
   db:
     container_name: blog_db
@@ -36,5 +33,5 @@ services:
       - db:/var/lib/mysql
 
 volumes:
-  # ghost:
+  ghost:
   db:
